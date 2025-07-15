@@ -1,0 +1,10 @@
+
+<%- include('partials/header', { title: 'Host Page', heading: '2nd page' }) %>
+
+      <h1> Register your home here </h1>
+                        <form action="/host/add-home" method="POST">
+                            <input type="text" name="houseName" placeholder="Enter the name of your house"/>
+                            <input type="submit"/>
+
+                        </form>
+<%- include('partials/footer') %>     

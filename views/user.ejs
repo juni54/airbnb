@@ -1,0 +1,44 @@
+
+<%- include('partials/header', { title: 'Home Page', heading: 'Junaid Home' }) %>
+
+            <h1> Welcome to airbnb </h1>
+            <ul>
+                <% rhomes.forEach((home) => { %>
+                <li id="home-<%= home._id %>">
+                        <%= home.houseName %>
+                        <a href="/host/edit/<%= home._id %>">✏️ Edit</a>
+                        <button type="button" onclick="deleteHome('<%= home._id %>')">❌ Delete</button>
+                       
+                </li>
+            <% }); %>
+            </ul>
+            <a href='/host/add-home'> Add home </a>
+<script>
+                    async function deleteHome(id) {
+                        //event.preventDefault(); // ✅ Stop default link or form behavior
+
+                        const confirmed = confirm("Delete this item?");
+                        if (!confirmed) return;
+
+                        try {
+                        const res = await fetch(`/host/delete/${id}`, {
+                            method: 'DELETE',
+                        });
+                            const data = await res.json();
+                        if (res.ok) {
+                            
+                            //alert(data.message); // ✅ Show "Deleted successfully"
+                            document.getElementById(`home-${id}`).remove();
+                        } else {
+                            alert("❌ Delete failed");
+                        }
+                        } catch (err) {
+                        console.error("❌ Error:", err);
+                        }
+                    }
+</script>
+
+
+<%- include('partials/footer') %> 
+
+
